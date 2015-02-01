@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>欢迎你！！！my index</h1>
+<h1>欢迎你！！！home page</h1>
 </body>
 </html>

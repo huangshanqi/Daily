@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
         <!-- 命名空间 -->
     <typeAliases>
-         <!-- typeAlias alias="User" type="cn.springmvc.model.User"/--> 
+         <typeAlias alias="User" type="com.hsq.daily.domain.User"/> 
+         <typeAlias alias="Blog" type="com.hsq.daily.domain.Blog"/> 
+         <typeAlias alias="BlogTag" type="com.hsq.daily.domain.BlogTag"/> 
+         <typeAlias alias="Tag" type="com.hsq.daily.domain.Tag"/> 
+         <typeAlias alias="Category" type="com.hsq.daily.domain.Category"/> 
     </typeAliases>
  
     <!-- 映射map -->
