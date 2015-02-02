@@ -11,9 +11,13 @@ public enum ResultCode {
 	USER_CREATE_ERROR("50000","创建用户失败"),
 	USER_MODIFY_USERNAME_ERROR("50001","修改用户名失败"),
 	USER_MODIFY_PASSWORD_ERROR("50002","修改用户密码失败"),
+	USER_LOGIN_SUCCCESS("50003","登陆成功"),
+	USER_LOGIN_FAILED("50004","登陆失败"),
+	USER_LOGIN_PASSWORD_ERROR("50004","登陆密码错误"),
 	
 	CATEGORY_CREATE_ERROR("50010","创建分类失败"),
 	CATEGORY_DELETE_ERROR("50011","删除分类失败"),
+	
 	
 	
 	

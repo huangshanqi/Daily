@@ -1,5 +1,12 @@
 package com.hsq.daily.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +19,8 @@ import com.hsq.daily.domain.User;
 import com.hsq.daily.model.ResultCode;
 import com.hsq.daily.model.ResultModel;
 import com.hsq.daily.model.ResultModelUtils;
+import com.hsq.daily.model.SessionModel;
+import com.hsq.daily.model.StatusModel;
 import com.hsq.daily.service.UserService;
 
 /*author:huangshanqi
@@ -63,4 +72,57 @@ public class UserController {
 		return resultModel;
 	}
 
+	
+	@RequestMapping(value = "login",method = RequestMethod.GET)
+	public String login(){
+		
+		return "user/login";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST, params = {
+			"email", "password" })
+	public String loginShiro(HttpServletRequest request,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+		
+		String result = "";
+		ResultModel resultModel = new ResultModel();
+		boolean rememberMe = false;
+		String host = request.getRemoteHost();
+		AuthenticationToken authToken = this.createToken(email, password,
+				rememberMe, host);
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			SessionModel loginedUser = (SessionModel) subject
+					.getPrincipal();
+			if (loginedUser == null || loginedUser.isExpired()) {
+				subject.login(authToken);
+				 loginedUser = (SessionModel) subject.getPrincipal();
+			}
+			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
+
+//			AuthResultModel authModel = new AuthResultModel();
+//			authModel.setUserId(loginedUser.getUserId());
+//			authModel.setAccessToken(loginedUser.getToken());
+//			authModel.setRefreshToken(loginedUser.getExpiredToken());
+//			authModel.setExpireshIn(loginedUser.getExpireshIn());
+//			authModel.setCreate(loginedUser.getLoginedTime());
+//			resultModel.setData(authModel);
+			resultModel.setData(new StatusModel("登录成功"));
+			//更新登录时间
+			//userService.updateLoginInfo(loginedUser.getUserId(), new Date());
+			result = "/home";
+		} catch (AuthenticationException e) {
+			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.USER_LOGIN_PASSWORD_ERROR);
+			resultModel.setData("登录失败，用户名或密码错误");
+			result = "login_error.jsp";
+		}
+		return result;
+	}
+	
+	
+	protected AuthenticationToken createToken(String username, String password,
+			boolean rememberMe, String host) {
+		return new UsernamePasswordToken(username, password, rememberMe, host);
+	}
 }

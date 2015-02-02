@@ -56,7 +56,7 @@ public class CategoryController {
 	public Object getAllCategory() {
 		ResultModel resultModel = null;
 
-		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.CATEGORY_DELETE_ERROR);
+		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
 		resultModel.setData(categoryService.getAllCategory());
 		return resultModel;
 	}
