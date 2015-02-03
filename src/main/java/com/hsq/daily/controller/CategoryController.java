@@ -12,6 +12,8 @@ import com.hsq.daily.domain.Category;
 import com.hsq.daily.model.ResultCode;
 import com.hsq.daily.model.ResultModel;
 import com.hsq.daily.model.ResultModelUtils;
+import com.hsq.daily.model.SessionModel;
+import com.hsq.daily.security.UserUtils;
 import com.hsq.daily.service.CategoryService;
 
 /*author:huangshanqi
@@ -51,13 +53,32 @@ public class CategoryController {
 		return resultModel;
 	}
 
+	/**
+	 * 得到所有的分类
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping(value = "get", method = RequestMethod.GET)
+	@RequestMapping(value = "all", method = RequestMethod.GET)
 	public Object getAllCategory() {
 		ResultModel resultModel = null;
 
+		SessionModel session = UserUtils.getLoginUser();
 		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
 		resultModel.setData(categoryService.getAllCategory());
+		return resultModel;
+	}
+	
+	/**
+	 * 得到用户所有的分类
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "get", method = RequestMethod.GET)
+	public Object getUserAllCategory() {
+		ResultModel resultModel = null;
+
+		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
+		resultModel.setData(categoryService.getUserAllCategory());
 		return resultModel;
 	}
 

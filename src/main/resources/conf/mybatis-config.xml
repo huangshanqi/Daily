@@ -9,7 +9,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
          <typeAlias alias="Blog" type="com.hsq.daily.domain.Blog"/> 
          <typeAlias alias="BlogTag" type="com.hsq.daily.domain.BlogTag"/> 
          <typeAlias alias="Tag" type="com.hsq.daily.domain.Tag"/> 
+         <typeAlias alias="UserTag" type="com.hsq.daily.domain.UserTag"/>
          <typeAlias alias="Category" type="com.hsq.daily.domain.Category"/> 
+         <typeAlias alias="UserCategory" type="com.hsq.daily.domain.UserCategory"/> 
     </typeAliases>
  
     <!-- 映射map -->

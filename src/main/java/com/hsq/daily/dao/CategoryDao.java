@@ -9,5 +9,6 @@ import com.hsq.daily.domain.Category;
  */
 public interface CategoryDao extends BaseDao<Category>{
 	public ArrayList<Category> getAllCategory();
-	public Category getByName(String name);
+	public ArrayList<Category> getUserAllCategory(int userId);
+	public Category getByUserIdName(Category category);
 }
