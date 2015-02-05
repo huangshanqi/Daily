@@ -4,16 +4,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hsq.daily.dao.TagDao">
 
-	<resultMap type="Tag" id="TAG">
+	<resultMap type="Tag" id="TAG_MAP">
 		<id property="id" column="id" />
 		<result property="name" column="name" />
+		<result property="userId" column="user_id" />
 	</resultMap>
 
 	<insert id="create" parameterType="Tag" keyProperty="id"
 		useGeneratedKeys="true">
 		insert into
-		tag(name)
-		values(#{name})
+		tag(name,user_id)
+		values(#{name},#{userId})
 	</insert>
 
 	<select id="findById" parameterType="int" resultMap="TAG_MAP">
@@ -26,7 +27,8 @@
 	<delete id="deleteById" parameterType="int">
 		delete from tag
 		where
-		id = #{id}
+		id =
+		#{id}
 	</delete>
 
 	<select id="getAllTag" resultMap="TAG_MAP">
@@ -35,17 +37,13 @@
 	</select>
 
 	<select id="getUserAllTag" parameterType="int" resultMap="TAG_MAP">
-		select * from tag
-		where id in (
-		select tag_id
-		from user_tag
+		select* from tag
 		where user_id = #{userId}
-		)
 	</select>
 
-	<select id="getByName" parameterType="String" resultMap="TAG_MAP">
+	<select id="getByUserIdName" parameterType="Tag" resultMap="TAG_MAP">
 		select * from tag
-		where name = #{name}
+		where name = #{name} and user_id = #{userId}
 		limit 1
 	</select>
 </mapper>

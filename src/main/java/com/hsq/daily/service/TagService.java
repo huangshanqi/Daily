@@ -14,6 +14,6 @@ public interface TagService {
 	public boolean deleteTag(int id);
 	public Tag findById(int id);
 	public ArrayList<Tag> getAllTag();
-	public ArrayList<Tag> getUserAllTag();
-	public Tag getByName(String name);
+	public ArrayList<Tag> getUserAllTag(int userId);
+	public Tag getByUserIdName(Tag tag);
 }

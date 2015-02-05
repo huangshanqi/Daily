@@ -8,47 +8,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hsq.daily.domain.Category;
+import com.hsq.daily.domain.Tag;
 import com.hsq.daily.model.ResultCode;
 import com.hsq.daily.model.ResultModel;
 import com.hsq.daily.model.ResultModelUtils;
-import com.hsq.daily.model.SessionModel;
 import com.hsq.daily.security.UserUtils;
-import com.hsq.daily.service.CategoryService;
+import com.hsq.daily.service.TagService;
 
 /*author:huangshanqi
  *time  :2015年2月1日 下午8:42:55
  *email :hsqmobile@gmail.com
  */
 @Controller
-@RequestMapping(value = "cate")
-public class CategoryController {
+@RequestMapping(value = "tag")
+public class TagController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private TagService tagService;
 
 	@ResponseBody
 	@RequestMapping(value = "new", method = RequestMethod.POST, params = { "name" })
-	public Object createCategory(@ModelAttribute Category category) {
+	public Object createTag(@ModelAttribute Tag tag) {
 		ResultModel resultModel = null;
-        category.setUserId(UserUtils.getLoginUser().getUserId());
-		if (categoryService.createCategory(category) > 0) {
+        tag.setUserId(UserUtils.getLoginUser().getUserId());
+		if (tagService.createTag(tag) > 0) {
 			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
 		} else {
-			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.CATEGORY_CREATE_ERROR);
+			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.TAG_CREATE_ERROR);
 		}
 		return resultModel;
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "delete", method = RequestMethod.POST, params = { "categoryId" })
-	public Object deleteCategoryById(@RequestParam("categoryId") int categoryId) {
+	@RequestMapping(value = "delete", method = RequestMethod.POST, params = { "tagId" })
+	public Object deleteTagById(@RequestParam("tagId") int tagId) {
 		ResultModel resultModel = null;
 
-		if (categoryService.deleteCategory(categoryId)) {
+		if (tagService.deleteTag(tagId)) {
 			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
 		} else {
-			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.CATEGORY_DELETE_ERROR);
+			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.TAG_DELETE_ERROR);
 		}
 		return resultModel;
 	}
@@ -59,11 +58,11 @@ public class CategoryController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public Object getAllCategory() {
+	public Object getAllTag() {
 		ResultModel resultModel = null;
 
 		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
-		resultModel.setData(categoryService.getAllCategory());
+		resultModel.setData(tagService.getAllTag());
 		return resultModel;
 	}
 	
@@ -73,11 +72,11 @@ public class CategoryController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "get", method = RequestMethod.GET)
-	public Object getUserAllCategory() {
+	public Object getUserAllTag() {
 		ResultModel resultModel = null;
 
 		resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
-		resultModel.setData(categoryService.getUserAllCategory(UserUtils.getLoginUser().getUserId()));
+		resultModel.setData(tagService.getUserAllTag(UserUtils.getLoginUser().getUserId()));
 		return resultModel;
 	}
 

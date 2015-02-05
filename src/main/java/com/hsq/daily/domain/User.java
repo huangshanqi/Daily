@@ -15,6 +15,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private int emailAuth;
+	private String salt;
 
 	public int getId() {
 		return id;
@@ -62,6 +63,14 @@ public class User implements Serializable {
 
 	public void setEmailAuth(int emailAuth) {
 		this.emailAuth = emailAuth;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 }

@@ -17,7 +17,8 @@ public enum ResultCode {
 	
 	CATEGORY_CREATE_ERROR("50010","创建分类失败"),
 	CATEGORY_DELETE_ERROR("50011","删除分类失败"),
-	
+	TAG_CREATE_ERROR("50020","创建标签失败"),
+	TAG_DELETE_ERROR("50021","删除标签失败"),
 	
 	
 	

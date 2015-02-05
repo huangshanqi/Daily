@@ -10,6 +10,7 @@ public class Category implements Serializable {
 
 	private int id;
 	private String name;
+	private int userId;
 
 	public int getId() {
 		return id;
@@ -25,6 +26,14 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

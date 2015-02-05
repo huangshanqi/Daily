@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +77,17 @@ public class UserController {
 	
 	@RequestMapping(value = "login",method = RequestMethod.GET)
 	public String login(){
-		
 		return "user/login";
+	}
+	
+	@RequestMapping(value = "logout",method = RequestMethod.GET)
+	public String logout(){
+		Subject subject = SecurityUtils.getSubject();
+		SessionModel session = (SessionModel) subject.getPrincipal();
+		if (session != null && !session.isExpired()) {
+			subject.logout();
+		}
+		return "home";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, params = {
@@ -84,40 +95,38 @@ public class UserController {
 	public String loginShiro(HttpServletRequest request,
 			@RequestParam("email") String email,
 			@RequestParam("password") String password) {
-		
-		String result = "";
-		ResultModel resultModel = new ResultModel();
-		boolean rememberMe = false;
-		String host = request.getRemoteHost();
-		AuthenticationToken authToken = this.createToken(email, password,
-				rememberMe, host);
-		try {
-			Subject subject = SecurityUtils.getSubject();
-			SessionModel loginedUser = (SessionModel) subject
-					.getPrincipal();
-			if (loginedUser == null || loginedUser.isExpired()) {
-				subject.login(authToken);
-				 loginedUser = (SessionModel) subject.getPrincipal();
-			}
-			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
+//		
+//		String result = "";
+//		ResultModel resultModel = new ResultModel();
+//		boolean rememberMe = false;
+//		String host = request.getRemoteHost();
+////		AuthenticationToken authToken = this.createToken(email, password,rememberMe, host);
+//		UsernamePasswordToken authToken = new UsernamePasswordToken(email, password);
+//		try {
+//			Subject subject = SecurityUtils.getSubject();
+//			SessionModel loginedUser = (SessionModel) subject
+//					.getPrincipal();
+//			if (loginedUser == null) {
+//			System.out.println("==================before login");
+//				subject.login(authToken);
+//				System.out.println("==================after login");
+//				 loginedUser = (SessionModel) subject.getPrincipal();
+//			}
+//			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.OK);
+//
+//			resultModel.setData(new StatusModel("登录成功"));
+//			//更新登录时间
+//			//userService.updateLoginInfo(loginedUser.getUserId(), new Date());
+//			result = "/home";
+//		} catch (UnknownAccountException ex) {//用户名没有找到。  
+//			System.err.println("error==================用户名没有找到。");
+//		} catch (IncorrectCredentialsException ex) {//用户名密码不匹配。  
+//			System.err.println("error==================用户名密码不匹配");
+//		}catch (AuthenticationException e) {//其他的登录错误  
+//			System.err.println("error==================用户名密码不匹配");
+//		}  
 
-//			AuthResultModel authModel = new AuthResultModel();
-//			authModel.setUserId(loginedUser.getUserId());
-//			authModel.setAccessToken(loginedUser.getToken());
-//			authModel.setRefreshToken(loginedUser.getExpiredToken());
-//			authModel.setExpireshIn(loginedUser.getExpireshIn());
-//			authModel.setCreate(loginedUser.getLoginedTime());
-//			resultModel.setData(authModel);
-			resultModel.setData(new StatusModel("登录成功"));
-			//更新登录时间
-			//userService.updateLoginInfo(loginedUser.getUserId(), new Date());
-			result = "/home";
-		} catch (AuthenticationException e) {
-			resultModel = ResultModelUtils.getResultModelByCode(ResultCode.USER_LOGIN_PASSWORD_ERROR);
-			resultModel.setData("登录失败，用户名或密码错误");
-			result = "login_error.jsp";
-		}
-		return result;
+		return "user/login";
 	}
 	
 	

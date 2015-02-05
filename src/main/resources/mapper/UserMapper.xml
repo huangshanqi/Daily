@@ -11,14 +11,14 @@
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="emailAuth" column="email_auth" />
-
+		<result property="salt" column="salt" />
 	</resultMap>
 
 	<insert id="create" parameterType="User" keyProperty="id"
 		useGeneratedKeys="true">
 		insert into
-		user(create_time,username,email,password,email_auth)
-		values(#{createTime},#{username},#{email},#{password},#{emailAuth})
+		user(create_time,username,email,password,email_auth,salt)
+		values(#{createTime},#{username},#{email},#{password},#{emailAuth},#{salt})
 	</insert>
 
 	<select id="findUserByEmail" parameterType="String" resultMap="USER_MAP">

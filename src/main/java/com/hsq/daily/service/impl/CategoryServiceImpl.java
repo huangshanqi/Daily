@@ -7,10 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hsq.daily.dao.CategoryDao;
-import com.hsq.daily.dao.UserCategoryDao;
 import com.hsq.daily.domain.Category;
-import com.hsq.daily.domain.UserCategory;
-import com.hsq.daily.security.UserUtils;
 import com.hsq.daily.service.CategoryService;
 
 /*author:huangshanqi
@@ -22,8 +19,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
-	@Autowired
-	private UserCategoryDao UserCategoryDao;
 	
 	@Transactional
 	@Override
@@ -33,18 +28,13 @@ public class CategoryServiceImpl implements CategoryService {
 		if(temp != null){
 			return -1;
 		}
-		int categoryId = categoryDao.create(category);
-		UserCategory userCategory = new UserCategory();
-		userCategory.setUserId(UserUtils.getLoginUser().getUserId());
-		userCategory.setCategoryId(categoryId);
-		return UserCategoryDao.create(userCategory);
+		return categoryDao.create(category);
 	}
 
 	@Override
 	public boolean deleteCategory(int id) {
 		// TODO Auto-generated method stub
-		
-		return categoryDao.deleteById(id) && UserCategoryDao.deleteUserCategory(UserUtils.getLoginUser().getUserId(), id);
+		return categoryDao.deleteById(id);
 	}
 
 	@Override
@@ -60,15 +50,9 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category getByName(String name) {
+	public ArrayList<Category> getUserAllCategory(int userId) {
 		// TODO Auto-generated method stub
-		return categoryDao.getByName(name);
-	}
-
-	@Override
-	public ArrayList<Category> getUserAllCategory() {
-		// TODO Auto-generated method stub
-		return categoryDao.getUserAllCategory(UserUtils.getLoginUser().getUserId());
+		return categoryDao.getUserAllCategory(userId);
 	}
 
 	

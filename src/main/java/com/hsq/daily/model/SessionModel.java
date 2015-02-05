@@ -8,10 +8,9 @@ import java.util.Date;
  *email :hsqmobile@gmail.com
  */
 public class SessionModel implements Serializable {
-
+	private String email;
 	private int userId;
 	private String username;
-	private String email;
 	private Long expireshIn;
 
 	public int getUserId() {

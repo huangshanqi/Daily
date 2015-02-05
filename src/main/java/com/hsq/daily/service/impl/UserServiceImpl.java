@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hsq.daily.dao.UserDao;
 import com.hsq.daily.domain.User;
+import com.hsq.daily.security.Digests;
+import com.hsq.daily.security.Encodes;
 import com.hsq.daily.service.UserService;
 
 /*author:huangshanqi
@@ -30,6 +32,13 @@ public class UserServiceImpl implements UserService {
 			return -1;
 		user.setCreateTime(new Date());
 		user.setEmailAuth(0);
+		
+		
+		byte[] salt = Digests.generateSalt(SALT_SIZE);
+		user.setSalt(Encodes.encodeHex(salt));
+
+		byte[] hashPassword = Digests.sha1(user.getPassword().getBytes(), salt, HASH_INTERATIONS);
+		user.setPassword(Encodes.encodeHex(hashPassword));
 		return userDao.create(user);
 	}
 

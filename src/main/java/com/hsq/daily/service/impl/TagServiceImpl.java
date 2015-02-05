@@ -3,70 +3,64 @@ package com.hsq.daily.service.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.hsq.daily.dao.CategoryDao;
 import com.hsq.daily.dao.TagDao;
-import com.hsq.daily.dao.UserCategoryDao;
-import com.hsq.daily.dao.UserTagDao;
-import com.hsq.daily.domain.Category;
 import com.hsq.daily.domain.Tag;
-import com.hsq.daily.domain.UserCategory;
-import com.hsq.daily.security.UserUtils;
 import com.hsq.daily.service.TagService;
 
 /*author:huangshanqi
  *time  :2015年2月3日 下午11:14:22
  *email :hsqmobile@gmail.com
  */
+@Service
 public class TagServiceImpl implements TagService {
 	
 	@Autowired
-	private TagDao tagcategoryDao;
-	@Autowired
-	private UserTagDao userTagDao;
+	private TagDao tagDao;
 
+	@Transactional
 	@Override
 	public int createTag(Tag tag) {
 		// TODO Auto-generated method stub
-		Category temp = categoryDao.getByUserIdName(category.getName());
+		Tag temp = tagDao.getByUserIdName(tag);
 		if(temp != null){
 			return -1;
 		}
-		int categoryId = categoryDao.create(category);
-		UserCategory userCategory = new UserCategory();
-		userCategory.setUserId(UserUtils.getLoginUser().getUserId());
-		userCategory.setCategoryId(categoryId);
-		return UserCategoryDao.create(userCategory);return 0;
+		return tagDao.create(tag);
 	}
 
 	@Override
 	public boolean deleteTag(int id) {
 		// TODO Auto-generated method stub
-		return false;
+		return tagDao.deleteById(id);
 	}
 
 	@Override
 	public Tag findById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return tagDao.findById(id);
 	}
 
 	@Override
 	public ArrayList<Tag> getAllTag() {
 		// TODO Auto-generated method stub
-		return null;
+		return tagDao.getAllTag();
 	}
 
 	@Override
-	public ArrayList<Tag> getUserAllTag() {
+	public ArrayList<Tag> getUserAllTag(int userId) {
 		// TODO Auto-generated method stub
-		return null;
+		return tagDao.getUserAllCategoryTag(userId);
 	}
 
 	@Override
-	public Tag getByName(String name) {
+	public Tag getByUserIdName(Tag tag) {
 		// TODO Auto-generated method stub
-		return null;
+		return tagDao.getByUserIdName(tag);
 	}
+
+	
 
 }

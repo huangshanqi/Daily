@@ -16,6 +16,5 @@ public interface CategoryService {
 	public boolean deleteCategory(int id);
 	public Category findById(int id);
 	public ArrayList<Category> getAllCategory();
-	public ArrayList<Category> getUserAllCategory();
-	public Category getByName(String name);
+	public ArrayList<Category> getUserAllCategory(int userId);
 }

@@ -11,5 +11,5 @@ import com.hsq.daily.domain.Tag;
 public interface TagDao extends BaseDao<Tag>{
 	public ArrayList<Tag> getAllTag();
 	public ArrayList<Tag> getUserAllCategoryTag(int userId);
-	public Tag getByName(String name);
+	public Tag getByUserIdName(Tag tag);
 }
