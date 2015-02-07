@@ -34,7 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public boolean deleteCategory(int id) {
 		// TODO Auto-generated method stub
-		return categoryDao.deleteById(id);
+		return categoryDao.deleteById(id)>0;
 	}
 
 	@Override

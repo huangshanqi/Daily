@@ -34,7 +34,7 @@ public class TagServiceImpl implements TagService {
 	@Override
 	public boolean deleteTag(int id) {
 		// TODO Auto-generated method stub
-		return tagDao.deleteById(id);
+		return tagDao.deleteById(id)>0;
 	}
 
 	@Override

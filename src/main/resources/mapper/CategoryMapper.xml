@@ -26,8 +26,7 @@
 
 	<delete id="deleteById" parameterType="int">
 		delete from category
-		where
-		id = #{id}
+		where id = #{id}
 	</delete>
 
 	<select id="getAllCategory" resultMap="CATEGORY_MAP">

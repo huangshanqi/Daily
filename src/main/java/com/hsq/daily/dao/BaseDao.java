@@ -10,6 +10,6 @@ public interface BaseDao <T extends Serializable>{
 	
 	public int create(T entity);
 	public T findById(int id);
-	public boolean deleteById(int id);
+	public int deleteById(int id);
 
 }

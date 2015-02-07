@@ -26,9 +26,7 @@
 
 	<delete id="deleteById" parameterType="int">
 		delete from tag
-		where
-		id =
-		#{id}
+		where id = #{id}
 	</delete>
 
 	<select id="getAllTag" resultMap="TAG_MAP">
@@ -37,7 +35,7 @@
 	</select>
 
 	<select id="getUserAllTag" parameterType="int" resultMap="TAG_MAP">
-		select* from tag
+		select * from tag
 		where user_id = #{userId}
 	</select>
 

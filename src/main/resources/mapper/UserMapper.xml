@@ -43,22 +43,19 @@
 
 	<update id="updateUsername" parameterType="User">
 		update user
-		set
-		username = #{username},create_time = #{createTime}
+		set username = #{username},create_time = #{createTime}
 		where id = #{id}
 	</update>
 
 	<update id="updatePassword" parameterType="User">
 		update user
-		set
-		password = #{password},create_time = #{createTime}
+		set password = #{password},create_time = #{createTime}
 		where id = #{id}
 	</update>
 
 	<update id="updateEmailAuth" parameterType="User">
 		update user
-		set
-		email_auth = #{emailAuth},create_time = #{createTime}
+		set email_auth = #{emailAuth},create_time = #{createTime}
 		where id = #{id}
 	</update>
 

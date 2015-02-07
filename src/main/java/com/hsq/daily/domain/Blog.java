@@ -14,7 +14,7 @@ public class Blog implements Serializable {
 	private String title;
 	private String content;
 	private int userId;
-	private int CategoryId;
+	private int categoryId;
 
 	public int getId() {
 		return id;
@@ -57,11 +57,11 @@ public class Blog implements Serializable {
 	}
 
 	public int getCategoryId() {
-		return CategoryId;
+		return categoryId;
 	}
 
 	public void setCategoryId(int categoryId) {
-		CategoryId = categoryId;
+		this.categoryId = categoryId;
 	}
 
 }

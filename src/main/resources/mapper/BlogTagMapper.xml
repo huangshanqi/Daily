@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hsq.daily.dao.BlogTagDao">
+
+	<resultMap type="BlogTag" id="BLOGTAG_MAP">
+		<id property="id" column="id" />
+		<result property="blogId" column="blog_id" />
+		<result property="tagId" column="tag_id" />
+	</resultMap>
+
+	<insert id="create" parameterType="BlogTag" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into
+		blog_tag(blog_id,tag_id)
+		values(#{blogId},#{tagId})
+	</insert>
+
+	<select id="findById" parameterType="int" resultMap="BLOGTAG_MAP">
+		select *
+		from blog_tag
+		where id = #{id}
+		limit 1
+	</select>
+
+	<delete id="deleteById" parameterType="int">
+		delete from blog_tag
+		where
+		id = #{id}
+	</delete>
+
+	<select id="getBlogAllTag" parameterType="int" resultMap="BLOGTAG_MAP">
+		select * from blog_tag
+		where blog_id = #{blogId}
+	</select>
+
+	<delete id="deleteBlogTag" parameterType="int">
+		delete from blog_tag
+		where blog_id = #{blogId}
+	</delete>
+
+	<select id="getByBlogIdTagid" parameterType="BlogTag" resultMap="BLOGTAG_MAP">
+		select * from blog_tag
+		where blog_id = #{blogId} and tag_id = #{tagId}
+		limit 1
+	</select>
+</mapper>

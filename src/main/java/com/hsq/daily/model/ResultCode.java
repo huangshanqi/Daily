@@ -20,6 +20,7 @@ public enum ResultCode {
 	TAG_CREATE_ERROR("50020","创建标签失败"),
 	TAG_DELETE_ERROR("50021","删除标签失败"),
 	
+	Blog_CREATE_ERROR("50030","创建新博文错误")
 	
 	
 	
